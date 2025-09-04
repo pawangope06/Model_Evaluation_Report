@@ -73,28 +73,39 @@ def generate_html_report(results, outdir):
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         h1 { text-align: center; color: #2c3e50; }
+
+        /* Use grid for side-by-side models */
+        .models-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 20px;
+        }
+
         .model-block {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 15px;
-            margin: 20px 0;
             box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            background: #fff;
         }
-        a {
-            text-decoration: none; color: #2980b9;
-        }
+
+        a { text-decoration: none; color: #2980b9;}
+
         .plots img {
             margin: 5px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+
         .metrics-table {
             border-collapse: collapse;
             margin-bottom: 10px;
+            width: 100%;
         }
         .metrics-table th, .metrics-table td {
             border: 1px solid #ccc;
             padding: 6px 10px;
+            text-align: center;
         }
         .metrics-table th {
             background: #f4f4f4;
@@ -102,36 +113,39 @@ def generate_html_report(results, outdir):
     </style>
 </head>
 <body>
-    <h1>📊 Model Evaluation Report</h1>
-    {% for model, info in results.items() %}
-    <div class="model-block">
-        <h2>{{ model }}</h2>
+    <h1> Model Evaluation Report</h1>
 
-        <h3>Metrics</h3>
-        <table class="metrics-table">
-            <tr><th>Metric</th><th>Value</th></tr>
-            {% for k,v in info.metrics.items() %}
-            <tr><td>{{k}}</td><td>{{ "%.4f"|format(v) }}</td></tr>
-            {% endfor %}
-        </table>
+    <div class="models-container">
+        {% for model, info in results.items() %}
+        <div class="model-block">
+            <h2>{{ model }}</h2>
 
-        <h3>Plots</h3>
-        <div class="plots">
-            <img src="{{ info.plots.roc }}" width="300">
-            <img src="{{ info.plots.pr }}" width="300">
-            <img src="{{ info.plots.cm }}" width="300">
+            <h3>Metrics</h3>
+            <table class="metrics-table">
+                <tr><th>Metric</th><th>Value</th></tr>
+                {% for k,v in info.metrics.items() %}
+                <tr><td>{{k}}</td><td>{{ "%.4f"|format(v) }}</td></tr>
+                {% endfor %}
+            </table>
+
+            <h3>Plots</h3>
+            <div class="plots">
+                <img src="{{ info.plots.roc }}" width="300">
+                <img src="{{ info.plots.pr }}" width="300">
+                <img src="{{ info.plots.cm }}" width="300">
+            </div>
+
+            <h3>Model Card</h3>
+            <a href="{{ info.model_card.md }}" target="_blank"> View Markdown Card</a>
         </div>
-
-        <h3>Model Card</h3>
-        <a href="{{ info.model_card.md }}" target="_blank">📄 View Markdown Card</a>
+        {% endfor %}
     </div>
-    {% endfor %}
 </body>
 </html>
 """)
 
     html = template.render(results=results)
     report_path = f"{outdir}/model_evaluation_report.html"
-    with open(report_path, "w",encoding="utf-8") as f:
+    with open(report_path, "w", encoding="utf-8") as f:
         f.write(html)
     return report_path

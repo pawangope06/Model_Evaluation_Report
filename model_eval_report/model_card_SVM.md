@@ -1,17 +1,17 @@
-# Model Card: RandomForest
+# Model Card: SVM
 
 ## Overview
 - **Task**: Binary Classification
 - **Dataset**: Breast Cancer (sklearn)
 - **Train/Test Split**: 80/20
-- **Evaluation Date**: 2025-09-04 15:19:33
+- **Evaluation Date**: 2025-09-04 13:21:24
 
 ## Metrics
-- **Accuracy**: 0.9649
-- **F1**: 0.9722
-- **ROC_AUC**: 0.9953
-- **RMSE_on_prob**: 0.1640
-- **MAE_on_prob**: 0.0682
+- **Accuracy**: 0.9474
+- **F1**: 0.9595
+- **ROC_AUC**: 0.9934
+- **RMSE_on_prob**: 0.1846
+- **MAE_on_prob**: 0.0932
 
 ## Strengths
 - Handles binary classification effectively.

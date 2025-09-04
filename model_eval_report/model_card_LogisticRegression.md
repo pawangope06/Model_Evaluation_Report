@@ -4,14 +4,14 @@
 - **Task**: Binary Classification
 - **Dataset**: Breast Cancer (sklearn)
 - **Train/Test Split**: 80/20
-- **Evaluation Date**: 2025-09-04 11:57:40
+- **Evaluation Date**: 2025-09-04 15:19:33
 
 ## Metrics
 - **Accuracy**: 0.9561
 - **F1**: 0.9655
-- **ROC_AUC**: 0.9980
-- **RMSE_on_prob**: 0.1548
-- **MAE_on_prob**: 0.0509
+- **ROC_AUC**: 0.9977
+- **RMSE_on_prob**: 0.1591
+- **MAE_on_prob**: 0.0475
 
 ## Strengths
 - Handles binary classification effectively.

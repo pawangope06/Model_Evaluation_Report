@@ -6,7 +6,7 @@ import numpy as np
 
 
 def compute_classification_metrics(y_true, y_pred, y_prob):
-    """Compute Accuracy, F1, ROC-AUC, RMSE, MAE on probabilities."""
+    
     metrics = {}
     metrics["Accuracy"] = accuracy_score(y_true, y_pred)
     metrics["F1"] = f1_score(y_true, y_pred)

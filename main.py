@@ -3,6 +3,8 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+# from sklearn.svm import SVC
+import pandas as pd
 
 from metrics import compute_classification_metrics
 from plot import plot_roc, plot_pr, plot_confusion
@@ -20,19 +22,24 @@ def main():
     )
 
     models = {
-        "LogisticRegression": LogisticRegression(max_iter=500),
+        "LogisticRegression": LogisticRegression(max_iter=10000),
         "RandomForest": RandomForestClassifier(n_estimators=100, random_state=42),
+        # "SVM" : SVC(probability=True, random_state=42),
     }
 
     results = {}
-
+    
+    # threshold = 0.9
     for name, model in models.items():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
         y_prob = model.predict_proba(X_test)
+        # y_pred = (y_prob[:, 1] >= threshold).astype(int)
+
 
         # Compute metrics
         metrics = compute_classification_metrics(y_test, y_pred, y_prob)
+
 
         # Save plots
         roc_filename = f"roc_{name}.png"
@@ -62,6 +69,7 @@ def main():
     # Generate report
     report_path = generate_html_report(results, outdir)
     print(f"Report generated: {report_path}")
+    
 
 
 if __name__ == "__main__":
