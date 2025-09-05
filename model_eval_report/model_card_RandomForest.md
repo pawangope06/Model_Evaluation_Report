@@ -4,7 +4,7 @@
 - **Task**: Binary Classification
 - **Dataset**: Breast Cancer (sklearn)
 - **Train/Test Split**: 80/20
-- **Evaluation Date**: 2025-09-05 11:45:39
+- **Evaluation Date**: 2025-09-05 11:49:38
 
 ## Metrics
 - **Accuracy**: 0.9649
