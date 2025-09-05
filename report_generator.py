@@ -17,6 +17,20 @@ def build_model_card_md(name, info):
     for k, v in info["metrics"].items():
         md += f"- **{k}**: {v:.4f}\n"
 
+    if "plots" in info and info["plots"]:
+        md += f"""
+## Plots
+Hover over link to view plots
+- ROC Curve  
+  ![ROC Curve]({info["plots"]["roc"]})
+
+- Precision-Recall Curve  
+  ![PR Curve]({info["plots"]["pr"]})
+
+- Confusion Matrix  
+  ![Confusion Matrix]({info["plots"]["cm"]})
+"""
+
     md += f"""
 ## Strengths
 - Handles binary classification effectively.
@@ -37,6 +51,9 @@ def build_model_card_md(name, info):
     return md
 
 
+#  upper code is used to build the markdown content for the model card
+#  the lower code saves the markdown file and generates a simple HTML version
+
 
 def md_to_html_simple(md_text):
     return f"<html><body><pre>{md_text}</pre></body></html>"
@@ -46,25 +63,15 @@ def save_model_card(name, info, outdir):
     md = build_model_card_md(name, info)
 
     md_path = os.path.join(outdir, f"model_card_{name}.md")
-    # html_path = os.path.join(outdir, f"model_card_{name}.html")
+    # the above code is used to create the markdown file path where the filename for model card is model_card_<model_name>.md
     
-    with open(md_path, "w", encoding="utf-8") as f:
+    with open(md_path, "w") as f:
         f.write(md)
-
-    # try:
-    #     import markdown
-    #     html = markdown.markdown(md)
-    # except:
-    #     html = md_to_html_simple(md)
-
-    # with open(html_path, "w", encoding="utf-8") as f:
-    #     f.write(html)
 
     # return just the filenames for report linking
     return os.path.basename(md_path)
-# , os.path.basename(html_path)
 
-
+# this code is used to generate a comprehensive HTML report summarizing the evaluation of multiple models
 def generate_html_report(results, outdir):
     template = Template("""
 <html>
@@ -144,8 +151,9 @@ def generate_html_report(results, outdir):
 </html>
 """)
 
+# the lower code is used to render the HTML report using the provided template and save it to the specified output directory
     html = template.render(results=results)
     report_path = f"{outdir}/model_evaluation_report.html"
-    with open(report_path, "w", encoding="utf-8") as f:
+    with open(report_path, "w") as f:
         f.write(html)
     return report_path

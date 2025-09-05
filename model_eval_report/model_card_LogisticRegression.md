@@ -4,14 +4,25 @@
 - **Task**: Binary Classification
 - **Dataset**: Breast Cancer (sklearn)
 - **Train/Test Split**: 80/20
-- **Evaluation Date**: 2025-09-04 15:19:33
+- **Evaluation Date**: 2025-09-05 11:45:38
 
 ## Metrics
 - **Accuracy**: 0.9561
 - **F1**: 0.9655
-- **ROC_AUC**: 0.9977
-- **RMSE_on_prob**: 0.1591
-- **MAE_on_prob**: 0.0475
+- **AUC**: 0.9977
+- **RMSE**: 0.1591
+- **MAE**: 0.0475
+
+## Plots
+Hover over link to view plots
+- ROC Curve  
+  ![ROC Curve](roc_LogisticRegression.png)
+
+- Precision-Recall Curve  
+  ![PR Curve](pr_LogisticRegression.png)
+
+- Confusion Matrix  
+  ![Confusion Matrix](cm_LogisticRegression.png)
 
 ## Strengths
 - Handles binary classification effectively.

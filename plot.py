@@ -40,4 +40,4 @@ def plot_confusion(y_true, y_pred, out_path, model_name):
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.savefig(out_path)
-    plt.close()
+    plt.close()    
